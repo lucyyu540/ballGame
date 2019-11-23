@@ -42,20 +42,31 @@ function draw() {
   //paddleB.position.y = constrain(mouseY, paddleA.height / 2, height - paddleA.height / 2);
   ball.bounce(wallTop);
   ball.bounce(wallBottom);
-    if (keyDown('a')) {
-    paddleA.position.y = paddleA.position.y + paddleSpeed;
+    if (keyDown('s')) {
+    	if (paddleA.position.y <= height - paddleA.height/2) {
+			paddleA.position.y += paddleSpeed;
+    	}
+    
+
   }
 
-  if (keyDown('s')) {
-    paddleA.position.y = paddleA.position.y - paddleSpeed;
+  if (keyDown('a')) {
+  	if (paddleA.position.y >= paddleA.height/2) {
+  		paddleA.position.y -= paddleSpeed;
+  	}
+    
   }
   
-    if (keyDown('o')) {
-    paddleB.position.y = paddleB.position.y + paddleSpeed;
+    if (keyDown('p')) {
+    if (paddleB.position.y <= height - paddleA.height/2) {
+			paddleB.position.y += paddleSpeed;
+    	}
   }
 
-  if (keyDown('p')) {
-    paddleB.position.y = paddleB.position.y - paddleSpeed;
+  if (keyDown('o')) {
+    if (paddleB.position.y >= paddleB.height/2) {
+  		paddleB.position.y -= paddleSpeed;
+  	}
   }
 
 	//ball.bounce(paddleA);
