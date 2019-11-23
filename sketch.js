@@ -8,7 +8,7 @@ let MAX_SPEED = 5;
 let paddleSpeed=5;
 let scoreLeft = 0 , scoreRight = 0;
 
-//let myFont;
+let myFont;
 //function preload() {
 	//myFont = loadFont('font.ttf');
 //}
@@ -124,8 +124,8 @@ function setPaddles() {
 function setScoreText() {
   textSize(32);
   //textFont(myFont);
-  text(scoreLeft, 10, height - 20);
-  text(scoreRight, width - 20, height - 20);
+  text(scoreLeft, width / 2 - 50, 50);
+  text(scoreRight, width / 2 + 50, 50);
 }
 
 function checkScore() {
