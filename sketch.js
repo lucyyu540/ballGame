@@ -56,16 +56,27 @@ function resetBall(){
 	if (ball.position.x < 0) {
     ball.position.x = width / 2;
     ball.position.y = height / 2;
+
+    MAX_SPEED = 5;
     ball.setSpeed(MAX_SPEED, 0);
+
+    paddleA.height = 100;
+    paddleB.height = 100;
+
     scoreRight += 1;
     checkScore();
   }
 
   if (ball.position.x > width) {
-
     ball.position.x = width / 2;
     ball.position.y = height / 2;
+
+    MAX_SPEED = 5;
     ball.setSpeed(MAX_SPEED, 180);
+
+    paddleA.height = 100;
+    paddleB.height = 100;
+
     scoreLeft += 1;
     checkScore();
   }
@@ -83,6 +94,14 @@ function setBounce() {
 
     swing = (ball.position.y - paddleA.position.y) / 3;
     ball.setSpeed(MAX_SPEED, ball.getDirection() + swing);
+    if (paddleB.height > 10) {
+    	paddleB.height-=2;
+    }
+    if (MAX_SPEED < 20) {
+      MAX_SPEED += 5;
+      ball.maxSpeed = MAX_SPEED;
+    }
+     
 
   }
   
@@ -90,6 +109,14 @@ function setBounce() {
 
     swing = (ball.position.y - paddleB.position.y) / 3;
     ball.setSpeed(MAX_SPEED, ball.getDirection() - swing);
+    if (paddleA.height > 10) {
+    	paddleA.height -= 2;
+    }
+    if (MAX_SPEED < 20) {
+      MAX_SPEED += 5;
+      ball.maxSpeed = MAX_SPEED;
+    }
+    
 
   }
 }
@@ -138,6 +165,12 @@ function checkScore() {
     paddleA.position.y=height/2;
     paddleB.position.y=height/2;
     
+    paddleA.height = 100;
+    paddleB.height = 100;
+
+    MAX_SPEED = 5;
+    ball.maxSpeed = MAX_SPEED;
+
     ball.position.x = width / 2;
     ball.position.y = height / 2;
     
