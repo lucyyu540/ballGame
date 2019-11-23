@@ -43,16 +43,58 @@ function setup() {
 function draw() {
 
   background(255, 255, 255);
-  textSize(32);
-  //textFont(myFont);
-  text(scoreLeft, 10, height - 20);
-  text(scoreRight, width - 20, height - 20);
-
+  setScoreText();
   //paddleA.position.y = constrain(mouseY, paddleA.height / 2, height - paddleA.height / 2);
   //paddleB.position.y = constrain(mouseY, paddleA.height / 2, height - paddleA.height / 2);
-  ball.bounce(wallTop);
-  ball.bounce(wallBottom);
-    if (keyDown('s')) {
+  setBounce();
+  setPaddles();
+  resetBall();
+  drawSprites();
+  
+}
+function resetBall(){
+	if (ball.position.x < 0) {
+    ball.position.x = width / 2;
+    ball.position.y = height / 2;
+    ball.setSpeed(MAX_SPEED, 0);
+    scoreRight += 1;
+    checkScore();
+  }
+
+  if (ball.position.x > width) {
+
+    ball.position.x = width / 2;
+    ball.position.y = height / 2;
+    ball.setSpeed(MAX_SPEED, 180);
+    scoreLeft += 1;
+    checkScore();
+  }
+}
+
+function setBounce() {
+	ball.bounce(wallTop);
+  	ball.bounce(wallBottom);
+  	//ball.bounce(paddleA);
+  //ball.bounce(paddleB);
+  //make the bounce more interesting
+  	let swing;
+
+  if (ball.bounce(paddleA)) {
+
+    swing = (ball.position.y - paddleA.position.y) / 3;
+    ball.setSpeed(MAX_SPEED, ball.getDirection() + swing);
+
+  }
+  
+    if (ball.bounce(paddleB)) {
+
+    swing = (ball.position.y - paddleB.position.y) / 3;
+    ball.setSpeed(MAX_SPEED, ball.getDirection() - swing);
+
+  }
+}
+function setPaddles() {
+	if (keyDown('s')) {
     	if (paddleA.position.y <= height - paddleA.height/2) {
 			paddleA.position.y += paddleSpeed;
     	}
@@ -78,46 +120,26 @@ function draw() {
   		paddleB.position.y -= paddleSpeed;
   	}
   }
-
-	//ball.bounce(paddleA);
-  //ball.bounce(paddleB);
-  //make the bounce more interesting
-  let swing;
-
-  if (ball.bounce(paddleA)) {
-
-    swing = (ball.position.y - paddleA.position.y) / 3;
-    ball.setSpeed(MAX_SPEED, ball.getDirection() + swing);
-
-  }
-  
-    if (ball.bounce(paddleB)) {
-
-    swing = (ball.position.y - paddleB.position.y) / 3;
-    ball.setSpeed(MAX_SPEED, ball.getDirection() - swing);
-
-  }
-
-  if (ball.position.x < 0) {
-    ball.position.x = width / 2;
-    ball.position.y = height / 2;
-    ball.setSpeed(MAX_SPEED, 0);
-    scoreRight += 1;
-    console.log(scoreLeft,scoreRight);
-  }
-
-  if (ball.position.x > width) {
-
-    ball.position.x = width / 2;
-    ball.position.y = height / 2;
-    ball.setSpeed(MAX_SPEED, 180);
-    scoreLeft += 1;
-    console.log(scoreLeft,scoreRight);
-  }
-
-
-
-
-  drawSprites();
-  
 }
+function setScoreText() {
+  textSize(32);
+  //textFont(myFont);
+  text(scoreLeft, 10, height - 20);
+  text(scoreRight, width - 20, height - 20);
+}
+
+function checkScore() {
+
+  if (scoreLeft === 5 || scoreRight === 5) {
+    
+    scoreLeft = 0;
+    scoreRight = 0;
+    
+    paddleA.position.y=height/2;
+    paddleB.position.y=height/2;
+    
+    ball.position.x = width / 2;
+    ball.position.y = height / 2;
+    
+  }
+ }
