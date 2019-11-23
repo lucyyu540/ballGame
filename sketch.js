@@ -6,6 +6,12 @@ let paddleA, paddleB, ball, wallTop, wallBottom;
 
 let MAX_SPEED = 5;
 let paddleSpeed=5;
+let scoreLeft = 0 , scoreRight = 0;
+
+//let myFont;
+//function preload() {
+	//myFont = loadFont('font.ttf');
+//}
 
 
 function setup() {
@@ -37,6 +43,10 @@ function setup() {
 function draw() {
 
   background(255, 255, 255);
+  textSize(32);
+  //textFont(myFont);
+  text(scoreLeft, 10, height - 20);
+  text(scoreRight, width - 20, height - 20);
 
   //paddleA.position.y = constrain(mouseY, paddleA.height / 2, height - paddleA.height / 2);
   //paddleB.position.y = constrain(mouseY, paddleA.height / 2, height - paddleA.height / 2);
@@ -92,6 +102,8 @@ function draw() {
     ball.position.x = width / 2;
     ball.position.y = height / 2;
     ball.setSpeed(MAX_SPEED, 0);
+    scoreRight += 1;
+    console.log(scoreLeft,scoreRight);
   }
 
   if (ball.position.x > width) {
@@ -99,6 +111,8 @@ function draw() {
     ball.position.x = width / 2;
     ball.position.y = height / 2;
     ball.setSpeed(MAX_SPEED, 180);
+    scoreLeft += 1;
+    console.log(scoreLeft,scoreRight);
   }
 
 
